@@ -1,0 +1,1 @@
+insert into cita (idPaciente, idEspecialista, fecha) values (:idPaciente, :idEspecialista, :fecha)

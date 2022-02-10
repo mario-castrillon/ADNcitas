@@ -1,0 +1,1 @@
+select count(1) from paciente where nombrePaciente = :nombrePaciente

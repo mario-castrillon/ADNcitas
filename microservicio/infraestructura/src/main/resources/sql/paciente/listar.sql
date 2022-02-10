@@ -1,0 +1,2 @@
+select idPaciente,nombrePaciente,cedula
+from paciente

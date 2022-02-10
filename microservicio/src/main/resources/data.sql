@@ -1,0 +1,3 @@
+INSERT INTO `citasmedicas`.`paciente` (`idPaciente`, `nombrePaciente`, `cedula`) VALUES ('1', 'Juan Paciente', '12365478');
+INSERT INTO `citasmedicas`.`especialista` (`idEspecialista`, `nombreEspecialista`, `especialidad`, `tarifa`, `maximoDiasAgendables`) VALUES ('1', 'Pedro Especialista', 'Nutricionista', '200000', '7');
+INSERT INTO `citasmedicas`.`cita` (`id`, `idPaciente`, `idEspecialista`, `fecha`) VALUES ('1', '1', '1', '2022-03-03 08:00:00');
