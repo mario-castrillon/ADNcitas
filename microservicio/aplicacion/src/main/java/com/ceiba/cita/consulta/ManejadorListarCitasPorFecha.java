@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.ceiba.cita.modelo.dto.DtoCita;
 import com.ceiba.cita.puerto.dao.DaoCita;
-import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
+//import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
 
 @Component
 public class ManejadorListarCitasPorFecha {
@@ -21,9 +21,12 @@ public class ManejadorListarCitasPorFecha {
 
 	public List<DtoCita> ejecutar(LocalDate fecha) {
 		List<DtoCita> respuesta = this.daoCita.listarPorFecha(fecha);
+
+		/*
 		if (respuesta.isEmpty()) {
 			throw new ExcepcionSinDatos(NO_HAY_CITAS_PARA_ESA_FECHA);
 		}
+		 */
 		return respuesta;
 	}
 }

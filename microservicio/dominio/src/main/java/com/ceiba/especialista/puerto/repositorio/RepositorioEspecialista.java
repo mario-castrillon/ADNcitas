@@ -1,5 +1,6 @@
 package com.ceiba.especialista.puerto.repositorio;
 
+import com.ceiba.especialista.modelo.dto.DtoEspecialista;
 import com.ceiba.especialista.modelo.entidad.Especialista;
 
 public interface RepositorioEspecialista {
@@ -9,4 +10,5 @@ public interface RepositorioEspecialista {
 	void eliminar(Long idEspecialista);
 	boolean existe(String nombre);
 	boolean existePorId(Long idEspecialista);
+	DtoEspecialista obtener(Long idEspecialista);
 }

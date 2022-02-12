@@ -7,7 +7,7 @@ public class EspecialistaTestDataBuilder {
 	private Long idEspecialista;
 	private String nombreEspecialista;
 	private String especialidad;
-	private Integer tarifa;
+	private int tarifa;
 	private int maximoDiasAgendables;
 	
 	public EspecialistaTestDataBuilder() {
@@ -32,7 +32,7 @@ public class EspecialistaTestDataBuilder {
 		return this;
 	}
 	
-	public EspecialistaTestDataBuilder conTarifa(Integer tarifa) {
+	public EspecialistaTestDataBuilder conTarifa(int tarifa) {
 		this.tarifa = tarifa;
 		return this;
 	}

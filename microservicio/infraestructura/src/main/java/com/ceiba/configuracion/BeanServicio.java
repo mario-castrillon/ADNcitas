@@ -22,15 +22,14 @@ import com.ceiba.paciente.servicio.ServicioEliminarPaciente;
 public class BeanServicio {
 	
 	@Bean
-	public ServicioMostrarDiasAgendables servicioMostrarDiasAgendables(DaoEspecialista daoEspecialista,
-			RepositorioEspecialista repositorioEspecialista) {
-		return new ServicioMostrarDiasAgendables(daoEspecialista, repositorioEspecialista);
+	public ServicioMostrarDiasAgendables servicioMostrarDiasAgendables(RepositorioEspecialista repositorioEspecialista) {
+		return new ServicioMostrarDiasAgendables(repositorioEspecialista);
 	}
 	
     @Bean
     public ServicioCrearCita servicioCrearCita(RepositorioCita repositorioCita, RepositorioPaciente repositorioPaciente,
-			RepositorioEspecialista repositorioEspecialista, DaoEspecialista daoEspecialista) {
-    	return new ServicioCrearCita(repositorioCita, repositorioPaciente, repositorioEspecialista, daoEspecialista);
+			RepositorioEspecialista repositorioEspecialista) {
+    	return new ServicioCrearCita(repositorioCita, repositorioPaciente, repositorioEspecialista);
     }
     
     @Bean
@@ -42,7 +41,6 @@ public class BeanServicio {
     public ServicioActualizarCita servicioActualizarCita(RepositorioCita repositorioCita) {
     	return new ServicioActualizarCita(repositorioCita);
     }
-    
     
     @Bean
 	public ServicioCrearEspecialista servicioCrearEspecialista(RepositorioEspecialista repositorioEspecialista) {

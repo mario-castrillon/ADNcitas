@@ -1,1 +1,1 @@
-insert into paciente (idPaciente, nombrePaciente, cedula) values (:idPaciente, :nombrePaciente, :cedula)
+insert into paciente (nombrePaciente, cedula) values (:nombrePaciente, :cedula)

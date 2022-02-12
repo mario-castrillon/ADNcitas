@@ -7,7 +7,6 @@ import java.util.List;
 
 import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.especialista.modelo.dto.DtoEspecialista;
-import com.ceiba.especialista.puerto.dao.DaoEspecialista;
 import com.ceiba.especialista.puerto.repositorio.RepositorioEspecialista;
 
 public class ServicioMostrarDiasAgendables {
@@ -15,12 +14,9 @@ public class ServicioMostrarDiasAgendables {
 	private static final String EL_ESPECIALISTA_NO_TIENE_DIAS_AGENDABLES = "El especialista no tiene dias agendables";
 	private static final String EL_ESPECIALISTA_NO_EXISTE = "El especialista no existe";
 
-	private final DaoEspecialista daoEspecialista;
 	private final RepositorioEspecialista repositorioEspecialista;
 
-	public ServicioMostrarDiasAgendables(DaoEspecialista daoEspecialista,
-			RepositorioEspecialista repositorioEspecialista) {
-		this.daoEspecialista = daoEspecialista;
+	public ServicioMostrarDiasAgendables(RepositorioEspecialista repositorioEspecialista) {
 		this.repositorioEspecialista = repositorioEspecialista;
 	}
 
@@ -29,12 +25,12 @@ public class ServicioMostrarDiasAgendables {
 		if (!repositorioEspecialista.existePorId(idEspecialista)) {
 			throw new ExcepcionSinDatos(EL_ESPECIALISTA_NO_EXISTE);
 		}
-
-		DtoEspecialista especialista = daoEspecialista.obtener(idEspecialista);
+	
+		DtoEspecialista especialista = repositorioEspecialista.obtener(idEspecialista);
 		List<LocalDate> respuesta = new ArrayList<>();
 		int maximoDiasAgendables = especialista.getMaximoDiasAgendables();
 
-		if (maximoDiasAgendables == 0) {
+		if (especialista.getMaximoDiasAgendables() == 0) {
 			throw new ExcepcionSinDatos(EL_ESPECIALISTA_NO_TIENE_DIAS_AGENDABLES);
 		}
 
@@ -42,7 +38,7 @@ public class ServicioMostrarDiasAgendables {
 		return respuesta;
 	}
 
-	private List<LocalDate> diasAgendablesSinFinesDeSemana(List<LocalDate> fechas, int dias) {
+	private void diasAgendablesSinFinesDeSemana(List<LocalDate> fechas, int dias) {
 		int diasAgregados = 0;
 		LocalDate temporal = LocalDate.now();
 
@@ -54,6 +50,6 @@ public class ServicioMostrarDiasAgendables {
 			}
 			temporal = temporal.plusDays(1);
 		}
-		return fechas;
+		//return fechas;
 	}
 }

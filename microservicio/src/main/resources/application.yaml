@@ -4,7 +4,7 @@ jasypt:
       algorithm: PBEWithMD5AndDES
 
 server:
-   port: 8039
+   port: 8033
    servlet:
       context-path: /citas
       session:

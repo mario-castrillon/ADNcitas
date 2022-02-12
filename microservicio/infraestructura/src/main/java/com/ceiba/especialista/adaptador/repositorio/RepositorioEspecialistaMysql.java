@@ -3,6 +3,8 @@ package com.ceiba.especialista.adaptador.repositorio;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import com.ceiba.especialista.adaptador.dao.MapeoEspecialista;
+import com.ceiba.especialista.modelo.dto.DtoEspecialista;
 import com.ceiba.especialista.modelo.entidad.Especialista;
 import com.ceiba.especialista.puerto.repositorio.RepositorioEspecialista;
 import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
@@ -27,6 +29,9 @@ public class RepositorioEspecialistaMysql implements RepositorioEspecialista {
 
 	@SqlStatement(namespace = "especialista", value = "existePorId")
 	private static String sqlExistePorId;
+	
+	@SqlStatement(namespace = "especialista", value = "obtener")
+	private static String sqlObtener;
 
 	public RepositorioEspecialistaMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
 		this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
@@ -64,6 +69,14 @@ public class RepositorioEspecialistaMysql implements RepositorioEspecialista {
         paramSource.addValue("idEspecialista", idEspecialista);
 
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExistePorId,paramSource, Boolean.class);
+	}
+
+	@Override
+	public DtoEspecialista obtener(Long idEspecialista) {
+		MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("idEspecialista", idEspecialista);
+		
+        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlObtener, paramSource, new MapeoEspecialista());
 	}
 
 }

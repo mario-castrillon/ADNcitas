@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.ceiba.cita.modelo.dto.DtoCita;
 import com.ceiba.cita.puerto.dao.DaoCita;
-import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
+//import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
 
 @Component
 public class ManejadorListarCitasPorEspecialistaId {
@@ -20,10 +20,11 @@ public class ManejadorListarCitasPorEspecialistaId {
 	}
 
 	public List<DtoCita> ejecutar(Long idEspecialista) {
-		List<DtoCita> respuesta = this.daoCita.listarPorEspecialistaId(idEspecialista);
+		/*
 		if(respuesta.isEmpty()) {
 			throw new ExcepcionSinDatos(NO_HAY_CITAS_PARA_ESE_ESPECIALISTA);
 		}
-		return respuesta;
+		 */
+		return this.daoCita.listarPorEspecialistaId(idEspecialista);
 	}
 }

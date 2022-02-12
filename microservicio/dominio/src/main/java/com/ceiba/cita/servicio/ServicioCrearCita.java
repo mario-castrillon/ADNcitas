@@ -11,7 +11,6 @@ import com.ceiba.cita.puerto.repositorio.RepositorioCita;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.especialista.modelo.dto.DtoEspecialista;
-import com.ceiba.especialista.puerto.dao.DaoEspecialista;
 import com.ceiba.especialista.puerto.repositorio.RepositorioEspecialista;
 import com.ceiba.paciente.puerto.repositorio.RepositorioPaciente;
 
@@ -30,14 +29,12 @@ public class ServicioCrearCita {
 	private final RepositorioCita repositorioCita;
 	private final RepositorioPaciente repositorioPaciente;
 	private final RepositorioEspecialista repositorioEspecialista;
-	private final DaoEspecialista daoEspecialista;
 
 	public ServicioCrearCita(RepositorioCita repositorioCita, RepositorioPaciente repositorioPaciente,
-			RepositorioEspecialista repositorioEspecialista, DaoEspecialista daoEspecialista) {
+			RepositorioEspecialista repositorioEspecialista) {
 		this.repositorioCita = repositorioCita;
 		this.repositorioPaciente = repositorioPaciente;
 		this.repositorioEspecialista = repositorioEspecialista;
-		this.daoEspecialista = daoEspecialista;
 	}
 
 	public Long ejecutar(Cita cita) {
@@ -75,7 +72,7 @@ public class ServicioCrearCita {
 		
 		LocalDate fechaSinHora = fecha.toLocalDate();
 		List<LocalDate> diasAgendables = new ArrayList<>();
-		DtoEspecialista especialista = daoEspecialista.obtener(idEspecialista);
+		DtoEspecialista especialista = repositorioEspecialista.obtener(idEspecialista);
 		
 		diasAgendablesSinFinesDeSemana(diasAgendables, especialista.getMaximoDiasAgendables());
 		
@@ -84,7 +81,7 @@ public class ServicioCrearCita {
 		}
 	}
 	
-	private List<LocalDate> diasAgendablesSinFinesDeSemana(List<LocalDate> fechas, int dias) {
+	private void diasAgendablesSinFinesDeSemana(List<LocalDate> fechas, int dias) {
 		int diasAgregados = 0;
 		LocalDate temporal = LocalDate.now();
 
@@ -96,6 +93,5 @@ public class ServicioCrearCita {
 			}
 			temporal = temporal.plusDays(1);
 		}
-		return fechas;
 	}
 }

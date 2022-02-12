@@ -38,7 +38,7 @@ class PacienteTest {
 	@DisplayName("Deberia Fallar Sin Cedula")
 	void deberiaFallarSinCedula() {
 		// Arrange
-		PacienteTestDataBuilder pacienteTestDataBuilder = new PacienteTestDataBuilder().conCedula(null).conId(1L);
+		PacienteTestDataBuilder pacienteTestDataBuilder = new PacienteTestDataBuilder().conId(1L).conCedula(null);
 		// Act-Assert
 		BasePrueba.assertThrows(() -> {
 			pacienteTestDataBuilder.build();

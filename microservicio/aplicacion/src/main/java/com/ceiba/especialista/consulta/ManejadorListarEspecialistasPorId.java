@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
+//import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.especialista.modelo.dto.DtoEspecialista;
 import com.ceiba.especialista.puerto.dao.DaoEspecialista;
 
@@ -21,9 +21,12 @@ public class ManejadorListarEspecialistasPorId {
 	public List<DtoEspecialista> ejecutar(Long idEspecialista) {
 		
 		List<DtoEspecialista> respuesta = this.daoEspecialista.listarPorId(idEspecialista);
+
+		/*
 		if(respuesta.isEmpty()) {
 			throw new ExcepcionSinDatos(NO_HAY_ESPECIALISTAS_CON_EL_ID_INGRESADO);
 		}
+		*/
 		
 		return respuesta;
 	}
