@@ -1,5 +1,5 @@
 package com.ceiba.especialista.servicio.testdatabuilder;
 
-class ComandoEspecialistaTestDataBuilder {
+public class ComandoEspecialistaTestDataBuilder {
 
 }
