@@ -18,18 +18,7 @@ pipeline {
     stage('Checkout') {
       steps{
         echo "------------>Checkout<------------"
-        checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: '*/main']],
-                    doGenerateSubmoduleConfigurations: false,
-                    extensions: [],
-                    gitTool: 'Default',
-                    submoduleCfg: [],
-                    userRemoteConfigs: [[
-                        credentialsId: 'GitHub_mario-castrillon',
-                        url:'https://github.com/mario-castrillon/ADNcitas.git'
-                    ]]
-                ])
+        checkout scm
       }
     }
 
