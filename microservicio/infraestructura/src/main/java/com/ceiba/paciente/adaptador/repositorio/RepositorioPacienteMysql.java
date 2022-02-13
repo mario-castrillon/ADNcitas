@@ -57,8 +57,8 @@ public class RepositorioPacienteMysql implements RepositorioPaciente {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("nombrePaciente", nombrePaciente);
 
-        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
-        			.queryForObject(sqlExiste,paramSource, Boolean.class);
+        return Boolean.TRUE.equals(this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+				.queryForObject(sqlExiste, paramSource, Boolean.class));
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class RepositorioPacienteMysql implements RepositorioPaciente {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("idPaciente", idPaciente);
 
-        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
-        		.queryForObject(sqlExistePorId,paramSource, Boolean.class);
+        return Boolean.TRUE.equals(this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+				.queryForObject(sqlExistePorId, paramSource, Boolean.class));
 	}
 }

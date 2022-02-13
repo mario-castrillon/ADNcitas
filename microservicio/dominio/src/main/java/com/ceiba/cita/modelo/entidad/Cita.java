@@ -35,10 +35,11 @@ public class Cita {
 		
 		validarObligatorio(fecha, SE_DEBE_INGRESAR_LA_FECHA);
 		validarMayor(fecha, LocalDateTime.now().plusDays(1), DEBE_SER_FECHA_SUPERIOR_A_HOY);
-		validarMenorHora(fecha, LocalTime.of(8,00,00), DEBE_SER_HORA_MAYOR_DE_LAS_8);
-		validarMayorHora(fecha, LocalTime.of(17,00,00), DEBE_SER_HORA_MENOR_DE_LAS_17);
+		validarMenorHora(fecha, LocalTime.of(8, 0,0), DEBE_SER_HORA_MAYOR_DE_LAS_8);
+		validarMayorHora(fecha, LocalTime.of(17,0,0), DEBE_SER_HORA_MENOR_DE_LAS_17);
 		validarObligatorio(idPaciente, SE_DEBE_INGRESAR_ID_DEL_PACIENTE);
-		validarObligatorio(idEspecialista, SE_DEBE_INGRESAR_EL_ID_DEL_ESPECIALISTA);
+		validarObligatorio(idEspecialista,
+				SE_DEBE_INGRESAR_EL_ID_DEL_ESPECIALISTA);
 		
 		this.id = id;
 		this.idPaciente = idPaciente;

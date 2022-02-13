@@ -56,15 +56,15 @@ public class RepositorioCitaMysql implements RepositorioCita {
 	public boolean existePorId(Long id) {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("id", id);
-		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExistePorId,
-				paramSource, Boolean.class);
+		return Boolean.TRUE.equals(this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExistePorId,
+				paramSource, Boolean.class));
 	}
 
 	@Override
 	public boolean existePorFecha(LocalDateTime fecha) {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("fecha", fecha);
-		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExiste, paramSource, Boolean.class);
+		return Boolean.TRUE.equals(this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExiste, paramSource, Boolean.class));
 	}
 
 }

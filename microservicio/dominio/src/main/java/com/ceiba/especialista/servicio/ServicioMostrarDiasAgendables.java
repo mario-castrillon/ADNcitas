@@ -50,6 +50,5 @@ public class ServicioMostrarDiasAgendables {
 			}
 			temporal = temporal.plusDays(1);
 		}
-		//return fechas;
 	}
 }

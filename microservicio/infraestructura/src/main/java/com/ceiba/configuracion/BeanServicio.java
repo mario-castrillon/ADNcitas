@@ -7,7 +7,6 @@ import com.ceiba.cita.puerto.repositorio.RepositorioCita;
 import com.ceiba.cita.servicio.ServicioActualizarCita;
 import com.ceiba.cita.servicio.ServicioCrearCita;
 import com.ceiba.cita.servicio.ServicioEliminarCita;
-import com.ceiba.especialista.puerto.dao.DaoEspecialista;
 import com.ceiba.especialista.puerto.repositorio.RepositorioEspecialista;
 import com.ceiba.especialista.servicio.ServicioActualizarEspecialista;
 import com.ceiba.especialista.servicio.ServicioCrearEspecialista;

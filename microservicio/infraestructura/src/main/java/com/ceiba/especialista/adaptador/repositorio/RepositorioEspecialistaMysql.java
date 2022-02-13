@@ -49,10 +49,8 @@ public class RepositorioEspecialistaMysql implements RepositorioEspecialista {
 
 	@Override
 	public void eliminar(Long idEspecialista) {
-		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-        paramSource.addValue("idEspecialista", idEspecialista);
-
-        this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().update(sqlEliminar, paramSource);
+        this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().update(sqlEliminar,
+									new MapSqlParameterSource().addValue("idEspecialista", idEspecialista));
 	}
 
 	@Override
@@ -60,7 +58,7 @@ public class RepositorioEspecialistaMysql implements RepositorioEspecialista {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("nombreEspecialista", nombreEspecialista);
 
-        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExiste,paramSource, Boolean.class);
+        return Boolean.TRUE.equals(this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExiste, paramSource, Boolean.class));
 	}
 
 	@Override
@@ -68,7 +66,7 @@ public class RepositorioEspecialistaMysql implements RepositorioEspecialista {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("idEspecialista", idEspecialista);
 
-        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExistePorId,paramSource, Boolean.class);
+        return Boolean.TRUE.equals(this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExistePorId, paramSource, Boolean.class));
 	}
 
 	@Override
