@@ -1,33 +1,19 @@
 @Library('ceiba-jenkins-library')
 
 pipeline {
-  //Donde se va a ejecutar el Pipeline
   agent {
     label 'Slave_Induccion'
   }
 
-  //Opciones específicas de Pipeline dentro del Pipeline
   options {
     	buildDiscarder(logRotator(numToKeepStr: '3'))
  	disableConcurrentBuilds()
   }
 
-  //Una sección que define las herramientas “preinstaladas” en Jenkins
   tools {
-    jdk 'JDK8_Centos' //Verisión preinstalada en la Configuración del Master
+    jdk 'JDK8_Centos'
   }
-/*	Versiones disponibles
-      JDK8_Mac
-      JDK6_Centos
-      JDK7_Centos
-      JDK8_Centos
-      JDK10_Centos
-      JDK11_Centos
-      JDK13_Centos
-      JDK14_Centos
-*/
 
-  //Aquí comienzan los “items” del Pipeline
   stages{
     stage('Checkout') {
       steps{
@@ -39,7 +25,6 @@ pipeline {
     stage('Compile & Unit Tests') {
       steps{
         echo "------------>Compile & Unit Tests<------------"
-
       }
     }
 
