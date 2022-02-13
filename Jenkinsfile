@@ -16,7 +16,7 @@ pipeline {
 
    task wrapper(type: Wrapper) {
         gradleVersion = '7.0.2'
-    }
+   }
 
   stages{
     stage('Checkout') {
@@ -32,6 +32,7 @@ pipeline {
         sh 'chmod +x ./comun/gradlew'
         sh './comun/gradlew --b ./microservicio/build.gradle clean'
         sh './comun/gradlew --b ./microservicio/build.gradle test'
+
       }
     }
 
