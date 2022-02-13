@@ -1,6 +1,5 @@
 @Library('ceiba-jenkins-library') _
 
-
 pipeline {
   agent {
     label 'Slave_Induccion'
@@ -67,4 +66,3 @@ pipeline {
       echo 'For example, if the Pipeline was previously failing but is now successful'
     }
   }
-}
