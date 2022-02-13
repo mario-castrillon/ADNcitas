@@ -1,5 +1,7 @@
 package com.ceiba.especialista.adaptador.repositorio;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
@@ -33,7 +35,8 @@ public class RepositorioEspecialistaMysql implements RepositorioEspecialista {
 	@SqlStatement(namespace = "especialista", value = "obtener")
 	private static String sqlObtener;
 
-	private final String idEspecialista = "idEspacialista";
+	@Autowired
+	private static final String idEspecialista = "idEspecialista";
 
 	public RepositorioEspecialistaMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
 		this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
