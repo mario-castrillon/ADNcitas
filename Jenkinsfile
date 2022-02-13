@@ -50,7 +50,7 @@ pipeline {
                 sonarPathProperties:'./sonar-project.properties')
         }
       }
-    }
+
 
 
     stage('Build') {
