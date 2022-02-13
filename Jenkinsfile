@@ -18,7 +18,18 @@ pipeline {
     stage('Checkout') {
       steps{
         echo "------------>Checkout<------------"
-        checkout scm
+        checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [],
+                    gitTool: 'Default',
+                    submoduleCfg: [],
+                    userRemoteConfigs: [[
+                        credentialsId: 'GitHub_mario-castrillon',
+                        url:'https://github.com/mario-castrillon/ADNcitas.git'
+                    ]]
+                ])
       }
     }
 
@@ -34,7 +45,7 @@ pipeline {
     stage('Static Code Analysis') {
       steps{
         echo '------------>Análisis de código estático<------------'
-        sonarqubeMasQualityGatesP(sonarKey:'co.com.ceiba.adn:ADN.Citas.Medicas-mario.castrillon',
+        sonarqubeMasQualityGatesP(sonarKey:'co.com.ceiba.adn:ADNCitasMedicas-mario.castrillon',
                 sonarName:'CeibaADN-ADNCitasMedicas(mario.castrillon)',
                 sonarPathProperties:'./sonar-project.properties')
         }
