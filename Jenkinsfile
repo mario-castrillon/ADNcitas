@@ -1,4 +1,4 @@
-@Library('ceiba-jenkins-library') _
+@Library('ceiba-jenkins-library')_
 
 pipeline {
   agent {
@@ -25,6 +25,9 @@ pipeline {
     stage('Compile & Unit Tests') {
       steps{
         echo "------------>Compile & Unit Tests<------------"
+        sh 'chmod +x ./microservicio/gradlew'
+        sh './microservicio/gradlew --b ./microservicio/build.gradle clean'
+        sh './microservicio/gradlew --b ./microservicio/build.gradle test'
       }
     }
 
@@ -42,7 +45,9 @@ pipeline {
     stage('Build') {
       steps {
         echo "------------>Build<------------"
-        sh './microservicio/build.gradle build -x test'
+        sh 'chmod +x ./microservicio/gradlew'
+        sh './microservicio/gradlew --b ./microservicio/build.gradle clean'
+        sh './microservicio/gradlew --b ./microservicio/build.gradle build -x test'
       }
     }
   }
@@ -67,3 +72,4 @@ pipeline {
       echo 'For example, if the Pipeline was previously failing but is now successful'
     }
   }
+}
