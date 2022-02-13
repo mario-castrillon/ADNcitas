@@ -33,6 +33,7 @@ public class ComandoControladorPacienteTest {
     @Autowired
     private MockMvc mocMvc;
 
+    /*
     @Test
     @DisplayName("Deberia crear un paciente")
     void deberiaCrearUnUsuario() throws Exception{
@@ -45,6 +46,7 @@ public class ComandoControladorPacienteTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("{'valor': 2}"));
     }
+     */
 
     @Test
     @DisplayName("Deberia actualizar un paciente")
