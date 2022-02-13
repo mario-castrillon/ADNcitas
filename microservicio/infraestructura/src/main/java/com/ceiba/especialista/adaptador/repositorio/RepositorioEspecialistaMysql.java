@@ -1,7 +1,6 @@
 package com.ceiba.especialista.adaptador.repositorio;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
@@ -36,7 +35,7 @@ public class RepositorioEspecialistaMysql implements RepositorioEspecialista {
 	private static String sqlObtener;
 
 	@Autowired
-	private static final String idEspecialista = "idEspecialista";
+	private static final String IDESPECIALISTA = "idEspecialista";
 
 	public RepositorioEspecialistaMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
 		this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
@@ -55,7 +54,7 @@ public class RepositorioEspecialistaMysql implements RepositorioEspecialista {
 	@Override
 	public void eliminar(Long idEspecialista) {
         this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().update(sqlEliminar,
-									new MapSqlParameterSource().addValue(this.idEspecialista, idEspecialista));
+									new MapSqlParameterSource().addValue(RepositorioEspecialistaMysql.IDESPECIALISTA, idEspecialista));
 	}
 
 	@Override
@@ -69,7 +68,7 @@ public class RepositorioEspecialistaMysql implements RepositorioEspecialista {
 	@Override
 	public boolean existePorId(Long idEspecialista) {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-        paramSource.addValue(this.idEspecialista, idEspecialista);
+        paramSource.addValue(RepositorioEspecialistaMysql.IDESPECIALISTA, idEspecialista);
 
         return Boolean.TRUE.equals(this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExistePorId, paramSource, Boolean.class));
 	}
@@ -77,7 +76,7 @@ public class RepositorioEspecialistaMysql implements RepositorioEspecialista {
 	@Override
 	public DtoEspecialista obtener(Long idEspecialista) {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-        paramSource.addValue(this.idEspecialista, idEspecialista);
+        paramSource.addValue(RepositorioEspecialistaMysql.IDESPECIALISTA, idEspecialista);
 		
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlObtener, paramSource, new MapeoEspecialista());
 	}
