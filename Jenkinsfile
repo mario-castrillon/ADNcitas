@@ -14,6 +14,7 @@ pipeline {
     jdk 'JDK8_Centos'
   }
 
+
   stages{
     stage('Checkout') {
       steps{
