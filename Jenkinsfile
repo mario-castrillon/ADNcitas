@@ -10,14 +10,13 @@ pipeline {
  	disableConcurrentBuilds()
   }
 
-  task wrapper(type: Wrapper) {
-      gradleVersion = '7.0.2'
-  }
-
   tools {
     jdk 'JDK8_Centos'
   }
 
+   task wrapper(type: Wrapper) {
+        gradleVersion = '7.0.2'
+    }
 
   stages{
     stage('Checkout') {
