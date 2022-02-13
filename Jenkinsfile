@@ -36,11 +36,12 @@ pipeline {
     stage('Static Code Analysis') {
       steps{
         echo '------------>Análisis de código estático<------------'
-        sonarqubeMasQualityGatesP(sonarKey:'co.com.ceiba.adn:mario.ADNCitasMedicas.mario.castrillon'),
-                sonarName:'CeibaADN-ADNCitasMedicas(mario.castrillon)',
-                sonarPathProperties:'./sonar-project.properties')
+        sonarqubeMasQualityGatesP(sonarKey:'co.com.ceiba.adn:mario.ADNCitasMedicas.mario.castrillon',
+                                     sonarName:'CeibaADN-ADNCitasMedicas-mario.castrillon',
+                                     sonarPathProperties:'./sonar-project.properties')
         }
       }
+
 
     stage('Build') {
       steps {
