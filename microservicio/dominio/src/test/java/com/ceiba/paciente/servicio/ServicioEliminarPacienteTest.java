@@ -18,7 +18,5 @@ class ServicioEliminarPacienteTest {
 		servicioEliminarPaciente.ejecutar(1l);
 		//Assert
 		Mockito.verify(repositorioPaciente, Mockito.times(1)).eliminar(1l);
-		
 	}
-
 }
