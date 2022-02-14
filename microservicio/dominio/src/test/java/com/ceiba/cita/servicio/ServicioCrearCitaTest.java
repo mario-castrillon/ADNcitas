@@ -1,10 +1,12 @@
 package com.ceiba.cita.servicio;
 
+import com.ceiba.BasePrueba;
 import com.ceiba.cita.modelo.dto.DtoCita;
 import com.ceiba.cita.modelo.entidad.Cita;
 import com.ceiba.cita.puerto.repositorio.RepositorioCita;
 import com.ceiba.cita.servicio.testdatabuilder.CitaDtoTestDataBuilder;
 import com.ceiba.cita.servicio.testdatabuilder.CitaTestDataBuilder;
+import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.especialista.modelo.dto.DtoEspecialista;
 import com.ceiba.especialista.modelo.entidad.Especialista;
 import com.ceiba.especialista.puerto.repositorio.RepositorioEspecialista;
@@ -48,6 +50,52 @@ public class ServicioCrearCitaTest {
         assertEquals(0, idCita);
 
         Mockito.verify(repositorioCita, Mockito.times(1)).crear(cita);
+    }
+
+    @Test
+    @DisplayName("Debería Fallar si el paciente no existe")
+    void deberiaFallarSiElPacienteNoExiste(){
+        // Arrange
+        Paciente paciente = new PacienteTestDataBuilder().build();
+        Especialista especialista = new EspecialistaTestDataBuilder().build();
+        Cita cita = new CitaTestDataBuilder().conId(3L).build();
+        DtoCita dtoCita = new CitaDtoTestDataBuilder().build();
+        DtoEspecialista dtoEspecialista = new EspecialistaDtoTestDataBuilder().conMaximoDiasAgendables(100).build();
+        RepositorioPaciente repositorioPaciente = Mockito.mock(RepositorioPaciente.class);
+        RepositorioEspecialista repositorioEspecialista = Mockito.mock(RepositorioEspecialista.class);
+        RepositorioCita repositorioCita = Mockito.mock(RepositorioCita.class);
+        Mockito.when(repositorioPaciente.existePorId(Mockito.anyLong())).thenReturn(false);
+        Mockito.when(repositorioEspecialista.existePorId(Mockito.anyLong())).thenReturn(true);
+        Mockito.when(repositorioCita.existePorFecha(cita.getFecha())).thenReturn(false);
+        Mockito.when(repositorioEspecialista.obtener(Mockito.anyLong())).thenReturn(dtoEspecialista);
+
+        ServicioCrearCita servicioCrearCita = new ServicioCrearCita(repositorioCita,repositorioPaciente,repositorioEspecialista);
+
+        BasePrueba.assertThrows(() -> servicioCrearCita.ejecutar(cita),
+                ExcepcionValorInvalido.class, "El paciente no existe");
+    }
+
+    @Test
+    @DisplayName("Debería Fallar si el especialista no existe")
+    void deberiaFallarSiElEspecialistaNoExiste(){
+        // Arrange
+        Paciente paciente = new PacienteTestDataBuilder().build();
+        Especialista especialista = new EspecialistaTestDataBuilder().build();
+        Cita cita = new CitaTestDataBuilder().conId(3L).build();
+        DtoCita dtoCita = new CitaDtoTestDataBuilder().build();
+        DtoEspecialista dtoEspecialista = new EspecialistaDtoTestDataBuilder().conMaximoDiasAgendables(100).build();
+        RepositorioPaciente repositorioPaciente = Mockito.mock(RepositorioPaciente.class);
+        RepositorioEspecialista repositorioEspecialista = Mockito.mock(RepositorioEspecialista.class);
+        RepositorioCita repositorioCita = Mockito.mock(RepositorioCita.class);
+        Mockito.when(repositorioPaciente.existePorId(Mockito.anyLong())).thenReturn(true);
+        Mockito.when(repositorioEspecialista.existePorId(Mockito.anyLong())).thenReturn(false);
+        Mockito.when(repositorioCita.existePorFecha(cita.getFecha())).thenReturn(false);
+        Mockito.when(repositorioEspecialista.obtener(Mockito.anyLong())).thenReturn(dtoEspecialista);
+
+        ServicioCrearCita servicioCrearCita = new ServicioCrearCita(repositorioCita,repositorioPaciente,repositorioEspecialista);
+
+        BasePrueba.assertThrows(() -> servicioCrearCita.ejecutar(cita),
+                ExcepcionValorInvalido.class, "El especialista no existe");
     }
 
     private void diasAgendablesSinFinesDeSemana(List<LocalDate> fechas, int dias) {

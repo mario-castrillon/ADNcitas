@@ -40,7 +40,6 @@ public class RepositorioPacienteMysql implements RepositorioPaciente {
 	@Override
 	public void actualizar(Paciente paciente) {
 		this.customNamedParameterJdbcTemplate.actualizar(paciente, sqlActualizar);
-		
 	}
 
 	@Override
@@ -54,19 +53,16 @@ public class RepositorioPacienteMysql implements RepositorioPaciente {
 
 	@Override
 	public boolean existe(String nombrePaciente) {
-		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-        paramSource.addValue("nombrePaciente", nombrePaciente);
-
         return Boolean.TRUE.equals(this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
-				.queryForObject(sqlExiste, paramSource, Boolean.class));
+				.queryForObject(sqlExiste, new MapSqlParameterSource().addValue("nombrePaciente", nombrePaciente), Boolean.class));
 	}
 
 	@Override
 	public boolean existePorId(Long idPaciente) {
-		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-        paramSource.addValue("idPaciente", idPaciente);
+        MapSqlParameterSource parametro = new MapSqlParameterSource();
+		parametro.addValue("idPaciente", idPaciente);
 
-        return Boolean.TRUE.equals(this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
-				.queryForObject(sqlExistePorId, paramSource, Boolean.class));
+		return Boolean.TRUE.equals(this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+				.queryForObject(sqlExistePorId, parametro, Boolean.class));
 	}
 }
