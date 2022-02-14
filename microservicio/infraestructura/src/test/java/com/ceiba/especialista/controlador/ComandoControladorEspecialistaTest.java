@@ -1,10 +1,10 @@
-package com.ceiba.paciente.controlador;
+package com.ceiba.especialista.controlador;
 
 import com.ceiba.ApplicationMock;
-import com.ceiba.paciente.modelo.entidad.Paciente;
-import com.ceiba.paciente.servicio.testdatabuilder.ComandoPacienteTestDataBuilder;
-import com.ceiba.paciente.comando.ComandoPaciente;
-import com.ceiba.paciente.servicio.testdatabuilder.ComandoPacienteTestDataBuilder;
+import com.ceiba.especialista.comando.ComandoEspecialista;
+import com.ceiba.especialista.controlador.ComandoControladorEspecialista;
+import com.ceiba.especialista.modelo.entidad.Especialista;
+import com.ceiba.especialista.servicio.testdatabuilder.ComandoEspecialistaTestDataBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,10 +22,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(ComandoControladorPaciente.class)
+@WebMvcTest(ComandoControladorEspecialista.class)
 @ContextConfiguration(classes= ApplicationMock.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class ComandoControladorPacienteTest {
+public class ComandoControladorEspecialistaTest {
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -33,46 +33,31 @@ public class ComandoControladorPacienteTest {
     @Autowired
     private MockMvc mocMvc;
 
-    /*
     @Test
-    @DisplayName("Deberia crear un paciente")
-    void deberiaCrearUnUsuario() throws Exception{
-        // arrange
-        ComandoPaciente paciente = new ComandoPacienteTestDataBuilder().build();
-        // act - assert
-        mocMvc.perform(post("/pacientes")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(paciente)))
-                .andExpect(status().isOk())
-                .andExpect(content().json("{'valor': 2}"));
-    }
-     */
-
-    @Test
-    @DisplayName("Deberia actualizar un paciente")
-    void deberiaActualizarUnPaciente() throws Exception{
+    @DisplayName("Deberia actualizar un especialista")
+    void deberiaActualizarUnEspecialista() throws Exception{
         // Arrange
-        Long idPaciente = 1L;
-        ComandoPaciente paciente = new ComandoPacienteTestDataBuilder().build();
+        Long idEspecialista = 1L;
+        ComandoEspecialista especialista = new ComandoEspecialistaTestDataBuilder().build();
         // Act - Assert
-        mocMvc.perform(put("/pacientes/{idPaciente}",idPaciente)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(paciente)))
+        mocMvc.perform(put("/especialistas/{idEspecialista}", idEspecialista)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(especialista)))
                         .andExpect(status().isOk());
     }
 
     @Test
-    @DisplayName("Deberia eliminar un paciente")
-    void deberiaEliminarUnPaciente() throws Exception {
+    @DisplayName("Deberia eliminar un especialista")
+    void deberiaEliminarUnEspecialista() throws Exception{
         // Arrange
-        Long idPaciente = 1L;
+        Long idEspecialista = 1L;
         // Act - Assert
-        mocMvc.perform(delete("/pacientes/{idPaciente}",idPaciente)
+        mocMvc.perform(delete("/especialistas/{idEspecialista}", idEspecialista)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-        mocMvc.perform(get("/pacientes")
+        mocMvc.perform(get("/especialistas")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
