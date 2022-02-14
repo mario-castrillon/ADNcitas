@@ -14,7 +14,7 @@ public class ComandoCitaTestDataBuilder {
     public ComandoCitaTestDataBuilder(){
         idPaciente = 1l;
         idEspecialista = 1l;
-        fecha = LocalDateTime.of(2022,3,3,3,0);
+        fecha = LocalDateTime.of(2022,3,3,9,0);
     }
 
     public ComandoCitaTestDataBuilder conIdPaciente(Long idPaciente){

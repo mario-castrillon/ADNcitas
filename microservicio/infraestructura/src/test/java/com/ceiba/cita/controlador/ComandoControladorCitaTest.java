@@ -1,8 +1,11 @@
-package com.ceiba.paciente.controlador;
+package com.ceiba.cita.controlador;
 
 import com.ceiba.ApplicationMock;
-import com.ceiba.paciente.modelo.entidad.Paciente;
-import com.ceiba.paciente.servicio.testdatabuilder.ComandoPacienteTestDataBuilder;
+import com.ceiba.cita.controlador.ComandoControladorCita;
+import com.ceiba.cita.modelo.entidad.Cita;
+import com.ceiba.cita.servicio.testdatabuilder.ComandoCitaTestDataBuilder;
+import com.ceiba.cita.comando.ComandoCita;
+import com.ceiba.cita.servicio.testdatabuilder.ComandoCitaTestDataBuilder;
 import com.ceiba.paciente.comando.ComandoPaciente;
 import com.ceiba.paciente.servicio.testdatabuilder.ComandoPacienteTestDataBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,15 +20,17 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDateTime;
+
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(ComandoControladorPaciente.class)
+@WebMvcTest(ComandoControladorCita.class)
 @ContextConfiguration(classes= ApplicationMock.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class ComandoControladorPacienteTest {
+public class ComandoControladorCitaTest {
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -33,45 +38,44 @@ public class ComandoControladorPacienteTest {
     @Autowired
     private MockMvc mocMvc;
 
-
     @Test
-    @DisplayName("Deberia crear un paciente")
+    @DisplayName("Deberia crear una cita")
     void deberiaCrearUnUsuario() throws Exception{
         // arrange
-        ComandoPaciente paciente = new ComandoPacienteTestDataBuilder().build();
+        ComandoCita cita = new ComandoCitaTestDataBuilder().conFecha(LocalDateTime.of(2022,2,18,14,0)).build();
         // act - assert
-        mocMvc.perform(post("/pacientes")
+        mocMvc.perform(post("/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(paciente)))
+                        .content(objectMapper.writeValueAsString(cita)))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{'valor': 2}"));
     }
 
     @Test
-    @DisplayName("Deberia actualizar un paciente")
-    void deberiaActualizarUnPaciente() throws Exception{
+    @DisplayName("Deberia actualizar una cita")
+    void deberiaActualizarUnaCita() throws Exception{
         // Arrange
-        Long idPaciente = 1L;
-        ComandoPaciente paciente = new ComandoPacienteTestDataBuilder().build();
+        Long id = 1L;
+        ComandoCita cita = new ComandoCitaTestDataBuilder().build();
         // Act - Assert
-        mocMvc.perform(put("/pacientes/{idPaciente}",idPaciente)
+        mocMvc.perform(put("/{id}",id)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(paciente)))
-                        .andExpect(status().isOk());
+                        .content(objectMapper.writeValueAsString(cita)))
+                .andExpect(status().isOk());
     }
 
     @Test
-    @DisplayName("Deberia eliminar un paciente")
-    void deberiaEliminarUnPaciente() throws Exception {
+    @DisplayName("Deberia eliminar una Cita")
+    void deberiaEliminarUnaCita() throws Exception {
         // Arrange
-        Long idPaciente = 1L;
+        Long id = 1L;
         // Act - Assert
-        mocMvc.perform(delete("/pacientes/{idPaciente}",idPaciente)
+        mocMvc.perform(delete("/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-        mocMvc.perform(get("/pacientes")
+        mocMvc.perform(get("/")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
