@@ -1,6 +1,8 @@
 package com.ceiba.especialista.controlador;
 
 import com.ceiba.ApplicationMock;
+import com.ceiba.especialista.comando.ComandoEspecialista;
+import com.ceiba.especialista.servicio.testdatabuilder.ComandoEspecialistaTestDataBuilder;
 import com.ceiba.paciente.controlador.ConsultaControladorPaciente;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -33,6 +36,21 @@ public class ComandoConsultaEspecialistasTest {
     @DisplayName("Deberia listar especialistas")
     void deberiaListarEspecialistas() throws Exception{
         mockMvc.perform(get("/especialistas")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].nombreEspecialista", is("Juan Especi")))
+                .andExpect(jsonPath("$[0].idEspecialista", is(1)))
+                .andExpect(jsonPath("$[0].especialidad", is("Especialidad ing")))
+                .andExpect(jsonPath("$[0].tarifa", is(30000)))
+                .andExpect(jsonPath("$[0].maximoDiasAgendables", is(6)));
+    }
+
+    @Test
+    @DisplayName("Deberia listar especialistas por id")
+    void deberiaListarEspecialistasPorId() throws Exception{
+        Long idEspecialista = 1L;
+        mockMvc.perform(get("/especialistas/{idEspecialista}", idEspecialista)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
